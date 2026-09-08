@@ -1,25 +1,27 @@
 ---
-title: Setup Storybook
+title: 配置 Storybook
 sidebar:
   order: 6
-  title: Setup
+  title: 配置
 ---
 
-Now that you’ve learned what stories are and how to browse them, let’s demo working on one of your components.
+> 🌐 本文档由 [storybookjs/storybook](https://github.com/storybookjs/storybook) 翻译，英文原版见原项目。
 
-Pick a simple component from your project, like a Button, and write a `.stories.js`, `.stories.ts`, or `.stories.svelte` file to go along with it. It might look something like this:
+了解了什么是 stories 以及如何浏览它们之后，我们来实际演练开发一个你自己的组件。
+
+从你的项目中选一个简单组件（比如 Button），为它编写一个 `.stories.js`、`.stories.ts` 或 `.stories.svelte` 文件。大概长这样：
 
 <CodeSnippets path="your-component.md" />
 
-Go to your Storybook to view the rendered component. It’s OK if it looks a bit unusual right now.
+打开你的 Storybook 查看渲染后的组件。现在看起来有点怪也没关系。
 
-Depending on your technology stack, you also might need to configure the Storybook environment further.
+根据你的技术栈，可能还需要进一步配置 Storybook 环境。
 
-## Render component styles
+## 渲染组件样式
 
-Storybook isn’t opinionated about how you generate or load CSS. It renders whatever DOM elements you provide. But sometimes, things won’t “look right” out of the box.
+Storybook 对你如何生成或加载 CSS 没有强约束。它只渲染你提供的 DOM 元素。但有时，开箱即用的效果会“看起来不对”。
 
-You may have to configure your CSS tooling for Storybook’s rendering environment. Here are some setup guides for popular tools in the community.
+你可能需要为 Storybook 的渲染环境配置 CSS 工具链。以下是社区流行工具的一些配置指南。
 
 - [Tailwind](https://storybook.js.org/recipes/tailwindcss/)
 - [Material UI](https://storybook.js.org/recipes/@mui/material/)
@@ -31,48 +33,48 @@ You may have to configure your CSS tooling for Storybook’s rendering environme
 - [Less](https://storybook.js.org/recipes/less/)
 - [Vanilla-extract](https://storybook.js.org/recipes/@vanilla-extract/css/)
 
-Don't see the tool that you're looking for? Check out the [styling and css](../configure/styling-and-css.mdx) page for more details.
+没找到你要的工具？查看[样式与 CSS](../configure/styling-and-css.mdx) 页面了解更多细节。
 
-## Configure Storybook for your stack
+## 为你的技术栈配置 Storybook
 
-Storybook comes with a permissive [default configuration](../configure/index.mdx). It attempts to customize itself to fit your setup. But it’s not foolproof.
+Storybook 自带宽松的[默认配置](../configure/index.mdx)，会尽量自我调整以适配你的环境，但并非万无一失。
 
-Your project may have additional requirements before components can be rendered in isolation. This warrants customizing configuration further. There are three broad categories of configuration you might need.
+你的项目可能有一些额外要求，组件才能被隔离渲染。这就需要进一步定制配置。你可能需要的配置大致分为三类。
 
 <details>
-<summary>Build configuration like Webpack and Babel</summary>
+<summary>构建配置（Webpack 与 Babel 等）</summary>
 
-If you see errors on the CLI when you run the `yarn storybook` command, you likely need to make changes to Storybook’s build configuration. Here are some things to try:
+如果你运行 `yarn storybook` 时在 CLI 中看到报错，很可能需要修改 Storybook 的构建配置。可以尝试以下做法：
 
-- [Presets](../addons/addon-types.mdx) bundle common configurations for various technologies into Storybook. In particular, presets exist for Create React App and Ant Design.
-- Specify a custom [Babel configuration](../configure/integration/compilers.mdx#babel) for Storybook. Storybook automatically tries to use your project’s config if it can.
-- Adjust the [Webpack configuration](../builders/webpack.mdx) that Storybook uses. Try patching in your own configuration if needed.
+- [预设（Presets）](../addons/addon-types.mdx)把各种技术的常见配置打包进 Storybook。特别是，Create React App 和 Ant Design 都有现成的 preset。
+- 为 Storybook 指定自定义 [Babel 配置](../configure/integration/compilers.mdx#babel)。只要可行，Storybook 会自动尝试使用你项目的配置。
+- 调整 Storybook 使用的 [Webpack 配置](../builders/webpack.mdx)。如有需要，尝试并入你自己的配置。
 
 </details>
 
 <details>
-<summary>Runtime configuration</summary>
+<summary>运行时配置</summary>
 
-If Storybook builds but you see an error immediately when connecting to it in the browser, in that case, chances are one of your input files is not compiling/transpiling correctly to be interpreted by the browser. Storybook supports evergreen browsers, but you may need to check the Babel and Webpack settings (see above) to ensure your component code works correctly.
+如果 Storybook 构建成功，但在浏览器中一连接就报错，多半是某个输入文件没有正确编译/转译为浏览器可解释的代码。Storybook 支持常青（evergreen）浏览器，但你可能需要检查 Babel 和 Webpack 设置（见上文），确保组件代码能正常工作。
 
 </details>
 
 <details id="component-context" name="component-context">
-<summary>Component context</summary>
+<summary>组件上下文</summary>
 
-If a particular story has a problem rendering, often it means your component expects a specific environment is available to the component.
+如果某个特定 story 渲染有问题，往往意味着你的组件期望某个特定环境对组件可用。
 
-A common frontend pattern is for components to assume that they render in a specific “context” with parent components higher up the rendering hierarchy (for instance, theme providers).
+前端的一种常见模式是：组件假定自己渲染在渲染层级上层父组件提供的特定“上下文”中（例如主题 provider）。
 
 <If renderer={[ 'react', 'preact', 'react-native', 'solid' ]}>
 
-Use [decorators](../writing-stories/decorators.mdx) to “wrap” every story in the necessary context providers. The [`.storybook/preview.*`](../configure/index.mdx#configure-story-rendering) file allows you to customize how components render in Canvas, the preview iframe. This file can be written in JavaScript (`preview.jsx`) or TypeScript (`preview.tsx`). See how you can wrap every component rendered in Storybook with [Styled Components](https://styled-components.com/) `ThemeProvider`, [Vue's Vuetify](https://vuetifyjs.com/en/), Svelte's [Bits UI](https://bits-ui.com/) `BitsConfig`, or with an Angular theme provider component in the example below.
+使用[装饰器（decorators）](../writing-stories/decorators.mdx)为每个 story “包裹”必要的上下文 provider。[`.storybook/preview.*`](../configure/index.mdx#configure-story-rendering) 文件允许你自定义组件在 Canvas（预览 iframe）中的渲染方式。该文件可以用 JavaScript（`preview.jsx`）或 TypeScript（`preview.tsx`）编写。请看下面的示例，了解如何用 [Styled Components](https://styled-components.com/) 的 `ThemeProvider`、[Vue 的 Vuetify](https://vuetifyjs.com/en/)、Svelte 的 [Bits UI](https://bits-ui.com/) `BitsConfig`，或 Angular 的主题 provider 组件来包裹 Storybook 中渲染的每个组件。
 
 </If>
 
 <If notRenderer={[ 'react', 'preact', 'react-native', 'solid' ]}>
 
-Use [decorators](../writing-stories/decorators.mdx) to “wrap” every story in the necessary context providers. The [`.storybook/preview.*`](../configure/index.mdx#configure-story-rendering) file allows you to customize how components render in Canvas, the preview iframe. This file can be written in JavaScript (`preview.js`) or TypeScript (`preview.ts`). See how you can wrap every component rendered in Storybook with [Styled Components](https://styled-components.com/) `ThemeProvider`, [Vue's Vuetify](https://vuetifyjs.com/en/), Svelte's [Bits UI](https://bits-ui.com/) `BitsConfig`, or with an Angular theme provider component in the example below.
+使用[装饰器（decorators）](../writing-stories/decorators.mdx)为每个 story “包裹”必要的上下文 provider。[`.storybook/preview.*`](../configure/index.mdx#configure-story-rendering) 文件允许你自定义组件在 Canvas（预览 iframe）中的渲染方式。该文件可以用 JavaScript（`preview.js`）或 TypeScript（`preview.ts`）编写。请看下面的示例，了解如何用 [Styled Components](https://styled-components.com/) 的 `ThemeProvider`、[Vue 的 Vuetify](https://vuetifyjs.com/en/)、Svelte 的 [Bits UI](https://bits-ui.com/) `BitsConfig`，或 Angular 的主题 provider 组件来包裹 Storybook 中渲染的每个组件。
 
 </If>
 
@@ -80,6 +82,6 @@ Use [decorators](../writing-stories/decorators.mdx) to “wrap” every story in
 
 </details>
 
-## Load assets and resources
+## 加载静态资源
 
-We recommend serving external resources and assets requested in your components statically with Storybook. It ensures that assets are always available to your stories. Read our [documentation](../configure/integration/images-and-assets.mdx) to learn how to host static files with Storybook.
+我们建议通过 Storybook 静态地提供组件请求的外部资源和静态资产。这能确保你的 stories 始终能访问到这些资源。阅读我们的[文档](../configure/integration/images-and-assets.mdx)了解如何在 Storybook 中托管静态文件。

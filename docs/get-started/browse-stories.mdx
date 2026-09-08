@@ -1,80 +1,82 @@
 ---
-title: Browse Stories
+title: 浏览 Stories
 hideRendererSelector: true
 sidebar:
   order: 5
-  title: Browse stories
+  title: 浏览 stories
 ---
 
-Last chapter, we learned that stories correspond with discrete component states. This chapter demonstrates how to use Storybook as a workshop for building components.
+> 🌐 本文档由 [storybookjs/storybook](https://github.com/storybookjs/storybook) 翻译，英文原版见原项目。
 
-## Sidebar and Preview
+上一章我们学习了 stories 对应组件的离散状态。本章演示如何把 Storybook 当作构建组件的工作台来使用。
 
-A `*.stories.js|ts|svelte` file defines all the stories for a component. Each story has a corresponding sidebar item. When you click on a story, it renders in an isolated preview iframe.
+## 侧边栏与预览
+
+一个 `*.stories.js|ts|svelte` 文件定义了一个组件的所有 stories。每个 story 在侧边栏都有一个对应条目。点击某个 story，它会在一个隔离的预览 iframe 中渲染。
 
 <Video src="../_assets/get-started/example-browse-all-stories-optimized.mp4" />
 
-The sidebar contains three areas: sidebar search, story explorer, and [testing widget](../writing-tests/index.mdx). Try the sidebar search to find a story by name. Navigate between stories by clicking on them in the explorer. Run component tests for all stories using the widget at the bottom of the sidebar.
+侧边栏包含三个区域：侧边栏搜索、story 浏览器和[测试小组件](../writing-tests/index.mdx)。试试侧边栏搜索，按名称查找 story；在浏览器中点击 stories 来切换；使用侧边栏底部的小组件为所有 stories 运行组件测试。
 
-Or use keyboard shortcuts. Click on the Storybook menu to see a list of available shortcuts.
+也可以使用键盘快捷键。点击 Storybook 菜单可查看可用快捷键列表。
 
 ![Storybook keyboard shortcuts examples](../_assets/get-started/storybook-keyboard-shortcuts.png)
 
 <Callout variant="info" icon="♿">
 
-Storybook supports fast keyboard navigation between landmark regions. Press <kbd>F6</kbd> and <kbd>Shift+F6</kbd> to navigate between the sidebar, toolbar, preview, and addons panel.
+Storybook 支持在地标区域之间快速键盘导航。按 <kbd>F6</kbd> 和 <kbd>Shift+F6</kbd> 可以在侧边栏、工具栏、预览和 addons 面板之间切换。
 
 </Callout>
 
-## Toolbar
+## 工具栏
 
-Storybook ships with time-saving tools built-in. The toolbar contains tools that allow you to adjust how the story renders in the Canvas:
+Storybook 内置了省时工具。工具栏包含以下工具，可调整 story 在 Canvas 中的呈现方式：
 
-- 🔍 Zooming visually scales the component so you can check the details.
-- 🖼 Background changes the rendered background behind your component so you can verify how your component renders in different visual contexts.
-- 📐 Grid renders your component on top of a grid layout so you can verify if your component is aligned correctly.
-- 📏 Measure toggles a measurement overlay to help you inspect the dimensions of components.
-- 🎚️ Outline displays the component's bounding box so you can verify if your component is positioned correctly.
-- 📱 Viewport renders the component in a variety of dimensions and orientations. It’s ideal for checking the responsiveness of components.
+- 🔍 缩放（Zoom）：在视觉上放大组件，方便检查细节。
+- 🖼 背景（Background）：更换组件背后的渲染背景，验证组件在不同视觉环境下的呈现。
+- 📐 网格（Grid）：在网格布局之上渲染组件，检查组件是否对齐。
+- 📏 测量（Measure）：切换测量覆盖层，帮你检查组件的尺寸。
+- 🎚️ 轮廓（Outline）：显示组件的包围盒，验证组件位置是否正确。
+- 📱 视口（Viewport）：以各种尺寸和方向渲染组件，是检查组件响应式表现的理想工具。
 
 <Video src="../_assets/get-started/toolbar-walkthrough-optimized.mp4" />
 
-The [“Docs”](../writing-docs/index.mdx) page displays auto-generated documentation for components (inferred from the source code). Usage documentation is helpful when sharing reusable components with your team, for example, in an application.
+[“Docs”](../writing-docs/index.mdx) 页面展示组件的自动生成文档（从源码推断）。例如在应用中与团队共享可复用组件时，用法文档非常有用。
 
 ![Storybook keyboard shortcuts examples](../_assets/get-started/mdx-example.png)
 
-The toolbar is customizable. You can use [globals](../essentials/toolbars-and-globals.mdx) to quickly toggle themes and languages. Or install Storybook toolbar [addons](../configure/user-interface/storybook-addons.mdx) from the community to enable advanced workflows.
+工具栏是可定制的。你可以使用 [globals](../essentials/toolbars-and-globals.mdx) 快速切换主题和语言，或者安装社区的 Storybook 工具栏 [addon](../configure/user-interface/storybook-addons.mdx) 来启用高级工作流。
 
 ## Addons
 
-Addons are plugins that extend Storybook's core functionality. You can find them in the addons panel, a reserved place in the Storybook UI below the Canvas. Each tab shows the generated metadata, logs, or static analysis for the selected story by the addon.
+Addon 是扩展 Storybook 核心功能的插件。它们位于 addons 面板——Storybook UI 中 Canvas 下方的一块保留区域。每个标签页展示所选 story 由该 addon 生成的元数据、日志或静态分析。
 
 ![Storybook addon examples](../_assets/get-started/addons.png)
 
-- **Controls** allows you to interact with a component’s args (inputs) dynamically. Experiment with alternate configurations of the component to discover edge cases.
-- **Actions** help you verify interactions produce the correct outputs via callbacks. For instance, if you view the “Logged In” story of the `Header` component, we can verify that clicking the “Log out” button triggers the `onLogout` callback, which would be provided by the component that made use of the Header.
-- **Interactions** provides a helpful user interface for debugging [interaction tests](../writing-tests/interaction-testing.mdx) with the `play` function.
-- **Accessibility** helps you identify [accessibility violations](../writing-tests/accessibility-testing.mdx) in your components.
-- **Visual Tests** lets you pinpoint UI bugs in your local development environment by providing instant feedback directly in Storybook.
+- **Controls**：让你动态操作组件的 args（输入）。试验组件的不同配置，发现边界情况。
+- **Actions**：帮你验证交互通过回调产生正确的输出。例如，在 `Header` 组件的 “Logged In” story 中，我们可以验证点击 “Log out” 按钮会触发 `onLogout` 回调——该回调由使用 Header 的组件提供。
+- **Interactions**：为调试带 `play` 函数的[交互测试](../writing-tests/interaction-testing.mdx)提供一个实用的界面。
+- **Accessibility**：帮你发现组件中的[无障碍违规](../writing-tests/accessibility-testing.mdx)。
+- **Visual Tests**：直接在 Storybook 中提供即时反馈，让你在本地开发环境中精确定位 UI bug。
 
 <Video src="../_assets/get-started/addons-walkthrough-optimized.mp4" />
 
-Storybook is extensible. Our rich ecosystem of addons helps you test, document, and optimize your stories. You can also create an addon to satisfy your workflow requirements. Read more in the [addons section](../addons/index.mdx).
+Storybook 是可扩展的。我们丰富的 addon 生态帮你测试、记录并优化你的 stories。你也可以创建自己的 addon 来满足工作流需求。更多内容见 [addons 章节](../addons/index.mdx)。
 
-In the next chapter, we'll get your components rendering in Storybook so you can use it to supercharge component development.
+下一章，我们将让你的组件在 Storybook 中渲染起来，用它为组件开发提速。
 
-## Use stories to build UIs
+## 用 stories 构建 UI
 
-When building apps, one of the biggest challenges is to figure out if a piece of UI already exists in your codebase and how to use it for the new feature you're building.
+构建应用时，最大的挑战之一是弄清楚某段 UI 是否已存在于代码库中，以及如何在你要开发的新功能中使用它。
 
-Storybook catalogues all your components and their use cases. Therefore, you can quickly browse it to find what you're looking for.
+Storybook 为你所有的组件及其用例建立了目录。因此，你可以快速浏览它，找到你要找的东西。
 
-Here's what the workflow looks like:
+工作流如下：
 
-- 🗃 Use the sidebar to find a suitable component
-- 👀 Review its stories to pick a variant that suits your needs
-- 📝 Copy/paste the story definition into your app code and wire it up to data
+- 🗃 用侧边栏找到合适的组件
+- 👀 查看它的 stories，挑选符合需求的变体
+- 📝 把 story 定义复制/粘贴进应用代码，接上数据
 
-You can access the story definition from the stories file or make it available in your published Storybook using the [Docs addon](../api/doc-blocks/doc-block-source.mdx).
+你可以从 stories 文件中获取 story 定义，或者通过 [Docs addon](../api/doc-blocks/doc-block-source.mdx) 让它在已发布的 Storybook 中可用。
 
 ![Docblock source](../_assets/get-started/docblock-source.png)

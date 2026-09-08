@@ -1,33 +1,37 @@
 ---
-title: Frequently Asked Questions
+title: 常见问题
 sidebar:
   order: 15
   title: FAQ
 ---
 
-Here are some answers to frequently asked questions. If you have a question, you can ask it in our [GitHub discussions](https://github.com/storybookjs/storybook/discussions/new?category=help).
+> 🌐 本文档由 [storybookjs/storybook](https://github.com/storybookjs/storybook) 翻译，英文原版见原项目。
+>
+> 注：原文件超过 10000 字符，问答正文已全部翻译；「历史版本文档对照表」为纯链接索引，保持原样未译。
 
-## Error: No angular.json file found
+以下是一些常见问题的解答。如果你有疑问，可以到我们的 [GitHub discussions](https://github.com/storybookjs/storybook/discussions/new?category=help) 提问。
 
-Storybook can be set up for both single-project and multi-project Angular workspaces. To set up Storybook for a project, run [the install command](./get-started/install.mdx) at the root of the workspace where the `angular.json` file is located. During initialization, the `.storybook` folder will be created and the `angular.json` file will be edited to add the Storybook configuration for the selected project. It's important to run the command at the root level to ensure that Storybook detects all projects correctly.
+## 错误：找不到 angular.json 文件（No angular.json file found）
 
-## How can I opt-out of Angular Ivy?
+Storybook 既可以部署在单项目 Angular 工作区，也支持多项目工作区。要为某个项目配置 Storybook，请在 `angular.json` 文件所在的工作区根目录运行[安装命令](./get-started/install.mdx)。初始化过程中会创建 `.storybook` 文件夹，并编辑 `angular.json` 文件，为所选项目加入 Storybook 配置。务必在根目录层级运行该命令，以确保 Storybook 能正确检测所有项目。
 
-In case you are having trouble with Angular Ivy you can deactivate it in your `main.js|ts`:
+## 如何关闭 Angular Ivy？
+
+如果你在使用 Angular Ivy 时遇到问题，可以在 `main.js|ts` 中将其停用：
 
 <CodeSnippets path="angular-framework-options-enable-ivy-false.md" />
 
-## How can I opt-out of Angular ngcc?
+## 如何关闭 Angular ngcc？
 
-In case you postinstall ngcc, you can disable it:
+如果你在 postinstall 中执行 ngcc，可以将其禁用：
 
 <CodeSnippets path="angular-framework-options-enable-ngcc-false.md" />
 
-Please report any issues related to Ivy in our [GitHub Issue Tracker](https://github.com/storybookjs/storybook/labels/app%3A%20angular) as the support for View Engine will be dropped in a future release of Angular.
+请在我们的 [GitHub Issue Tracker](https://github.com/storybookjs/storybook/labels/app%3A%20angular) 上报告任何与 Ivy 相关的问题，因为 Angular 的未来版本将移除对 View Engine 的支持。
 
-## How can I run coverage tests with Create React App and leave out stories?
+## 如何用 Create React App 运行覆盖率测试并排除 stories？
 
-Create React App does not allow providing options to Jest in your `package.json`, however you can run `jest` with commandline arguments:
+Create React App 不允许在 `package.json` 中为 Jest 提供选项，但你可以通过命令行参数运行 `jest`：
 
 ```sh
 npm test -- --coverage --collectCoverageFrom='["src/**/*.{js,jsx}","!src/**/stories/*"]'
@@ -35,35 +39,35 @@ npm test -- --coverage --collectCoverageFrom='["src/**/*.{js,jsx}","!src/**/stor
 
 <Callout variant="info" icon="💡">
 
-If you're using [`Yarn`](https://yarnpkg.com/) as a package manager, you'll need to adjust the command accordingly.
+如果你使用 [`Yarn`](https://yarnpkg.com/) 作为包管理器，需要相应调整命令。
 
 </Callout>
 
-## How do I setup Storybook to share Webpack configuration with Next.js?
+## 如何设置 Storybook 与 Next.js 共享 Webpack 配置？
 
-Storybook's [Next.js framework](./get-started/frameworks/nextjs.mdx) will read from your `next.config.js` file by default. If your configuration file is named or located differently, you can specify the path in your Storybook main configuration file:
+Storybook 的 [Next.js 框架](./get-started/frameworks/nextjs.mdx)默认会读取你的 `next.config.js` 文件。如果你的配置文件命名或位置不同，可以在 Storybook 的 main 配置文件中指定路径：
 
 <CodeSnippets path="nextjs-framework-options-next-config-path.md" />
 
-## How do I fix module resolution in special environments?
+## 如何修复特殊环境下的模块解析问题？
 
-In case you are using [Yarn Plug-n-Play](https://yarnpkg.com/features/pnp) or your project is set up within a mono repository environment, you might run into issues with module resolution similar to this when running Storybook:
+如果你使用 [Yarn Plug-n-Play](https://yarnpkg.com/features/pnp)，或项目构建在 monorepo 环境中，运行 Storybook 时可能遇到类似这样的模块解析问题：
 
 ```shell
 WARN   Failed to load preset: "@storybook/react-webpack5/preset"
 Required package: @storybook/react-webpack5 (via "@storybook/react-webpack5/preset")
 ```
 
-To fix this, you can wrap the package name inside your Storybook configuration file (i.e., `.storybook/main.js|ts`) as follows:
+要修复这个问题，可以在 Storybook 配置文件（即 `.storybook/main.js|ts`）中把包名包裹起来，如下所示：
 
 <CodeSnippets path="storybook-main-pnpm-with-module-resolution.md" />
 
-## Extensionless imports in Storybook main config
+## Storybook main 配置中的无扩展名导入
 
-When upgrading or running Storybook, you may see warnings about extensionless relative imports in `.storybook/main.<js|ts>` (for example: `import sharedMain from '../main'`).
-Storybook requires explicit extensions in config imports to avoid this deprecation warning.
+在升级或运行 Storybook 时，你可能会看到关于 `.storybook/main.<js|ts>` 中无扩展名相对导入的警告（例如：`import sharedMain from '../main'`）。
+Storybook 要求配置文件中的导入显式携带扩展名，以避免这一弃用警告。
 
-To fix the issue, just make sure to include the extension of the file (TypeScript or Javascript) you're importing:
+要修复该问题，只需确保导入的文件（TypeScript 或 JavaScript）带上扩展名：
 
 ```ts title=".storybook/main.<js|ts>"
 // Change from this 👇
@@ -73,9 +77,9 @@ import sharedMain from '../main';
 import sharedMain from '../main.js'; // or .ts
 ```
 
-### For TypeScript users (`.storybook/main.ts`)
+### 针对 TypeScript 用户（`.storybook/main.ts`）
 
-You will also need to configure TypeScript so these imports type-check without emitting JavaScript:
+你还需要配置 TypeScript，让这些导入可以类型检查而不产出 JavaScript：
 
 ```json title=".storybook/tsconfig.json"
 {
@@ -90,23 +94,23 @@ You will also need to configure TypeScript so these imports type-check without e
 
 <Callout variant="info">
 
-It is advisable to add a `.storybook/tsconfig.json` file so that you apply changes only to Storybook config files, and not your entire project.
+建议单独添加一个 `.storybook/tsconfig.json` 文件，这样这些改动只会作用于 Storybook 配置文件，而不会影响整个项目。
 
 </Callout>
 
-## How do I setup the new React Context Root API with Storybook?
+## 如何配合 Storybook 设置新的 React Context Root API？
 
-If your installed React Version equals or is higher than 18.0.0, the new React Root API is automatically used and the newest React [concurrent features](https://reactjs.org/docs/concurrent-mode-intro.html) can be used.
+如果你安装的 React 版本等于或高于 18.0.0，将自动使用新的 React Root API，并且可以使用最新的 React [并发特性（concurrent features）](https://reactjs.org/docs/concurrent-mode-intro.html)。
 
-You can opt-out from the new React Root API by setting the following property in your `.storybook/main.js|ts` file:
+你可以在 `.storybook/main.js|ts` 文件中设置以下属性来退出新的 React Root API：
 
 <CodeSnippets path="react-framework-options-legacy-root-api.md" />
 
-## Why is there no addons channel?
+## 为什么没有 addons channel？
 
-A common error is that an addon tries to access the "channel", but the channel is not set. It can happen in a few different cases:
+一个常见错误是 addon 尝试访问 "channel"，但 channel 尚未设置。它可能发生在以下几种情况：
 
-1. You're trying to access addon channel (e.g., by calling `setOptions`) in a non-browser environment like Jest. You may need to add a channel mock:
+1. 你在非浏览器环境（如 Jest）中尝试访问 addon channel（例如调用 `setOptions`）。你可能需要添加一个 channel mock：
 
    ```js
    import { addons, mockChannel } from 'storybook/preview-api';
@@ -114,23 +118,23 @@ A common error is that an addon tries to access the "channel", but the channel i
    addons.setChannel(mockChannel());
    ```
 
-2. In React Native, it's a special case documented in [#1192](https://github.com/storybookjs/storybook/issues/1192)
+2. 在 React Native 中属于特殊情况，参见 [#1192](https://github.com/storybookjs/storybook/issues/1192) 的说明
 
-## Why aren't the addons working in a composed Storybook?
+## 为什么 addon 在组合（composed）的 Storybook 中不工作？
 
-Composition is a new feature that we released with version 6.0, and there are still some limitations to it.
+Composition 是我们随 6.0 版本发布的新功能，目前仍有一些限制。
 
-For now, the addons you're using in a composed Storybook will not work.
+目前，你在组合 Storybook 中使用的 addon 无法正常工作。
 
-We're working on overcoming this limitation, and soon you'll be able to use them as if you are working with a non-composed Storybook.
+我们正在努力克服这一限制，很快你就可以像使用非组合 Storybook 一样使用它们了。
 
-## Can I have a Storybook with no local stories?
+## 可以拥有一个没有本地 stories 的 Storybook 吗？
 
-Storybook does not work unless you have at least one local story (or docs page) defined in your project. In this context, local means a `.stories.*` or `.mdx` file that is referenced in your project's `.storybook/main.js` config.
+除非项目中至少定义了一个本地 story（或文档页面），否则 Storybook 无法工作。这里的“本地”指的是在项目 `.storybook/main.js` 配置中引用的 `.stories.*` 或 `.mdx` 文件。
 
-If you're in a [Storybook composition](./sharing/storybook-composition.mdx) scenario, where you have multiple Storybooks, and want to have an extra Storybook with no stories of its own, that serves as a "glue" for all the other Storybooks in a project for demo/documentation purposes, you can do the following steps:
+如果你处于 [Storybook composition](./sharing/storybook-composition.mdx) 场景中——拥有多个 Storybook，并想再建一个自身没有 stories 的 Storybook，作为项目内所有其他 Storybook 的“粘合剂”用于演示/文档目的——可以按以下步骤操作：
 
-Introduce a single `.mdx` docs page (addon-docs required), that serves as an Introduction page, like so:
+引入一个单独的 `.mdx` 文档页（需要 addon-docs），作为介绍页，如下所示：
 
 ```mdx title="Introduction.mdx"
 # Welcome
@@ -138,23 +142,25 @@ Introduce a single `.mdx` docs page (addon-docs required), that serves as an Int
 Some description here
 ```
 
-And then refer to it in your Storybook config file:
+然后在 Storybook 配置文件中引用它：
 
 <CodeSnippets path="main-config-stories-only-mdx.md" />
 
-## Which community addons are compatible with the latest version of Storybook?
+## 哪些社区 addon 与最新版本的 Storybook 兼容？
 
-Starting with Storybook version 6.0, we've introduced some great features aimed at streamlining your development workflow.
+从 Storybook 6.0 开始，我们引入了一些旨在简化开发工作流的出色特性。
 
-With this, we would like to point out that if you plan on using addons created by our fantastic community, you need to consider that some of those addons might be working with an outdated version of Storybook.
+同时我们想提醒：如果你计划使用社区创建的 addon，需要注意其中一些可能是针对旧版本 Storybook 开发的。
 
-We're actively working to provide a better way to address this situation, but in the meantime, we'd like to ask for a bit of caution on your end so that you don't run into unexpected problems. Let us know by leaving a comment in the following [GitHub issue](https://github.com/storybookjs/storybook/issues/26031) so that we can gather information and expand the current list of addons that need to be updated to work with the latest version of Storybook.
+我们正在积极提供更好的方式来处理这一情况，但在此期间，希望你能保持谨慎，以免遇到意外问题。欢迎在下面的 [GitHub issue](https://github.com/storybookjs/storybook/issues/26031) 中留言，帮助我们收集信息，扩充需要更新才能兼容最新版 Storybook 的 addon 列表。
 
-## Is it possible to browse the documentation for past versions of Storybook?
+## 可以浏览 Storybook 历史版本文档吗？
 
-With the release of version 6.0, we updated our documentation as well. That doesn't mean that the old documentation was removed. We kept it to help you with your Storybook migration process. Use the content from the table below in conjunction with our [migration guide](https://github.com/storybookjs/storybook/blob/next/MIGRATION.md).
+随着 6.0 版本发布，我们也更新了文档。但这并不意味着旧文档被删除了。我们保留它们是为了帮助你完成 Storybook 迁移过程。请将下表内容与我们的[迁移指南](https://github.com/storybookjs/storybook/blob/next/MIGRATION.md)结合使用。
 
-We're only covering versions 5.3 and 5.0 as they were important milestones for Storybook. If you want to go back in time a little more, you'll have to check the specific release in the monorepo.
+我们只覆盖 5.3 和 5.0 两个版本，因为它们是 Storybook 的重要里程碑。如果你想回溯更早的内容，需要到 monorepo 中查看对应 release。
+
+<!-- 以下「历史版本文档对照表」保持英文原样（纯链接索引） -->
 
 | Section       | Page                                            | Current Location                                                                          | Version 5.3 location                                                                                                                                                                                                                                                 | Version 5.0 location                                                                                                                                     |
 | ------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -259,19 +265,19 @@ We're only covering versions 5.3 and 5.0 as they were important milestones for S
 
 <Callout variant="info">
 
-If you have stories written with the older `storiesOf` format, it was removed in Storybook 8.0 and is no longer maintained. We recommend that you migrate your stories to CSF. See the [migration guide](./releases/migration-guide.mdx#major-breaking-changes) for more information. However, if you need, you can still access the old `storiesOf` [documentation](https://github.com/storybookjs/storybook/blob/release/5.3/docs/src/pages/formats/storiesof-api/index.md) for reference.
+如果你的 stories 是用旧的 `storiesOf` 格式编写的：该格式已在 Storybook 8.0 中移除，不再维护。我们建议将你的 stories 迁移到 CSF。更多信息参见[迁移指南](./releases/migration-guide.mdx#major-breaking-changes)。不过如有需要，你仍可访问旧的 `storiesOf` [文档](https://github.com/storybookjs/storybook/blob/release/5.3/docs/src/pages/formats/storiesof-api/index.md)作为参考。
 
 </Callout>
 
-## What icons are available for my toolbar or my addon?
+## 我的工具栏或 addon 可以使用哪些图标？
 
-With the [`@storybook/icons`](https://www.npmjs.com/package/@storybook/icons) package, you get a set of icons that you can use to customize your UI. Go through the [documentation](https://main--64b56e737c0aeefed9d5e675.chromatic.com/?path=/docs/introduction--docs) to see how the icons look and use it as a reference when writing your addon or defining your Storybook global types.
+借助 [`@storybook/icons`](https://www.npmjs.com/package/@storybook/icons) 包，你可以获得一组用于自定义 UI 的图标。浏览其[文档](https://main--64b56e737c0aeefed9d5e675.chromatic.com/?path=/docs/introduction--docs)查看图标样式，在编写 addon 或定义 Storybook 全局类型时作为参考。
 
-## I see a "No Preview" error with a Storybook production build
+## 我在 Storybook 生产构建上看到 "No Preview" 错误
 
-If you're using the `serve` package to verify your production build of Storybook, you'll get that error. It relates to how `serve` handles rewrites. For instance, `/iframe.html` is rewritten into `/iframe`, and you'll get that error.
+如果你使用 `serve` 包来验证 Storybook 的生产构建，就会遇到这个错误。它与 `serve` 处理重写（rewrite）的方式有关。例如，`/iframe.html` 会被重写为 `/iframe`，于是你就会看到该错误。
 
-We recommend that you use [http-server](https://www.npmjs.com/package/http-server) instead and use the following command to preview Storybook:
+我们建议改用 [http-server](https://www.npmjs.com/package/http-server)，并使用以下命令预览 Storybook：
 
 ```shell
 npx http-server storybook-static
@@ -279,23 +285,23 @@ npx http-server storybook-static
 
 <Callout variant="info">
 
-Suppose you don't want to run the command above frequently. Add `http-server` as a development dependency and create a new script to preview your production build of Storybook.
+如果你不想频繁运行上面的命令，可以把 `http-server` 加为开发依赖，并创建一个新脚本来预览 Storybook 的生产构建。
 
 </Callout>
 
-## Can I use Storybook with Vue 2?
+## 可以将 Storybook 与 Vue 2 一起使用吗？
 
-Vue 2 entered [End of Life](https://v2.vuejs.org/lts/) (EOL) on December 31, 2023, and is no longer supported by the Vue team. As a result, we've stopped supporting Vue 2 in Storybook 8 and above and will not be releasing any new versions that support it. We recommend upgrading your project to Vue 3, which Storybook fully supports. If that's not an option, you can still use Storybook with Vue 2 by installing the latest version of Storybook 7 with the following command:
+Vue 2 已于 2023 年 12 月 31 日进入[生命周期终点](https://v2.vuejs.org/lts/)（EOL），Vue 团队不再支持它。因此，我们在 Storybook 8 及以上版本中停止了对 Vue 2 的支持，也不会再发布任何支持它的新版本。我们建议把项目升级到 Storybook 完全支持的 Vue 3。如果暂时无法升级，你可以通过以下命令安装最新版 Storybook 7 来继续搭配 Vue 2 使用：
 
 <CodeSnippets path="storybook-init-v7.md" />
 
-## Why aren't my code blocks highlighted with Storybook MDX?
+## 为什么我的代码块在 Storybook MDX 中没有语法高亮？
 
-Out of the box, Storybook provides syntax highlighting for a set of languages (e.g., Javascript, Markdown, CSS, HTML, Typescript, GraphQL) you can use with your code blocks. Currently, there's a known limitation when you try to register a custom language to get syntax highlighting. We're working on a fix for this and will update this section once it's available.
+开箱即用，Storybook 为一组语言（如 Javascript、Markdown、CSS、HTML、Typescript、GraphQL）的代码块提供语法高亮。目前，尝试注册自定义语言以获得语法高亮存在一个已知限制。我们正在修复，可用后会更新本节。
 
-## Why aren't my MDX styles working in Storybook?
+## 为什么我的 MDX 样式在 Storybook 中不生效？
 
-Writing documentation with MDX can be troublesome, especially regarding how your code is formatted when using line breaks with code blocks. For example, this will break:
+用 MDX 编写文档可能比较麻烦，尤其是代码在代码块中换行时的格式处理。例如，这样写会出问题：
 
 ```mdx title="Example.mdx"
 <style>{`
@@ -309,7 +315,7 @@ Writing documentation with MDX can be troublesome, especially regarding how your
 `}</style>
 ```
 
-But this will work:
+但这样写没问题：
 
 ```mdx title="Example.mdx"
 <style>
@@ -325,13 +331,13 @@ But this will work:
 </style>
 ```
 
-See the following [issue](https://github.com/mdx-js/mdx/issues/1945) for more information.
+更多信息参见这个 [issue](https://github.com/mdx-js/mdx/issues/1945)。
 
-## Why are my mocked GraphQL queries failing with Storybook's MSW addon?
+## 为什么我的 GraphQL mock 查询在 Storybook 的 MSW addon 中失败？
 
-If you're working with Vue 3, you'll need to install [`@vue/apollo-composable`](https://www.npmjs.com/package/@vue/apollo-composable).
+如果你使用 Vue 3，需要安装 [`@vue/apollo-composable`](https://www.npmjs.com/package/@vue/apollo-composable)。
 
-With Svelte, you'll need to install [`@rollup/plugin-replace`](https://www.npmjs.com/package/@rollup/plugin-replace) and update your `rollup.config` file to the following:
+使用 Svelte 时，需要安装 [`@rollup/plugin-replace`](https://www.npmjs.com/package/@rollup/plugin-replace)，并把 `rollup.config` 文件更新为如下内容：
 
 ```js title="rollup.config.js"
 // Boilerplate imports
@@ -360,32 +366,32 @@ export default {
 };
 ```
 
-With Angular, the most common issue is the placement of the `mockServiceWorker.js` file. Use this [example](https://github.com/mswjs/examples/tree/main/examples/with-angular) as a point of reference.
+使用 Angular 时，最常见的问题是 `mockServiceWorker.js` 文件的放置位置。请参考这个[示例](https://github.com/mswjs/examples/tree/main/examples/with-angular)。
 
-## Can I use other GraphQL providers with Storybook's MSW addon?
+## 可以在 Storybook 的 MSW addon 中使用其他 GraphQL 提供方吗？
 
-Yes, check the [addon's examples](https://github.com/mswjs/msw-storybook-addon/tree/main/packages/docs/src/demos) to learn how to integrate different providers.
+可以。查看该 [addon 的示例](https://github.com/mswjs/msw-storybook-addon/tree/main/packages/docs/src/demos)，了解如何集成不同的提供方。
 
-## Can I mock GraphQL mutations with Storybook's MSW addon?
+## 可以用 Storybook 的 MSW addon mock GraphQL mutation 吗？
 
-No, currently, the MSW addon only has support for GraphQL queries. If you're interested in including this feature, open an issue in the [MSW addon repository](https://github.com/mswjs/msw-storybook-addon) and follow up with the maintainer.
+不可以。目前 MSW addon 只支持 GraphQL 查询。如果你希望加入该功能，请到 [MSW addon 仓库](https://github.com/mswjs/msw-storybook-addon)提交 issue 并与维护者跟进。
 
-## Why are my stories not showing up correctly when using certain characters?
+## 为什么使用某些字符时，我的 stories 不能正确显示？
 
-Storybook allows you to use most characters while naming your stories. Still, specific characters (e.g., `#`) can lead to issues when Storybook generates the internal identifier for the story, leading to collisions and incorrectly outputting the correct story. We recommend using such characters sparsely.
+Storybook 允许你在命名 story 时使用大多数字符。但某些特定字符（如 `#`）可能导致 Storybook 生成 story 内部标识符时出现问题，造成冲突，进而无法正确输出目标 story。建议尽量少用这类字符。
 
-## Why is Storybook's source loader returning undefined with curried functions?
+## 为什么 Storybook 的 source loader 对柯里化函数返回 undefined？
 
-This is a known issue with Storybook. If you're interested in getting it fixed, open an issue with a [working reproduction](./contribute/how-to-reproduce.mdx) so that it can be triaged and fixed in future releases.
+这是 Storybook 的一个已知问题。如果你希望它被修复，请附上一个[可复现的示例](./contribute/how-to-reproduce.mdx)提交 issue，以便分类处理并在未来版本中修复。
 
-## Why isn't Storybook's test runner working?
+## 为什么 Storybook 的 test runner 不工作？
 
-There's an issue with Storybook's test runner and the latest version of Jest (i.e., version 28), which prevents it from running effectively. As a workaround, you can downgrade Jest to the previous stable version (i.e., version 27), and you'll be able to run it. See the following [issue](https://github.com/storybookjs/test-runner/issues/99) for more information.
+Storybook 的 test runner 与最新版 Jest（即 28 版）存在兼容问题，导致它无法有效运行。变通办法是把 Jest 降级到上一个稳定版（即 27 版），即可正常运行。更多信息参见这个 [issue](https://github.com/storybookjs/test-runner/issues/99)。
 
-## How does Storybook handle environment variables?
+## Storybook 如何处理环境变量？
 
-Storybook has built-in support for [environment variables](./configure/environment-variables.mdx). By default, environment variables are only available in Node.js code and are not available in the browser as some variables should be kept secret (e.g., API keys) and **not** exposed to anyone visiting the published Storybook.
+Storybook 内置了对[环境变量](./configure/environment-variables.mdx)的支持。默认情况下，环境变量只在 Node.js 代码中可用，在浏览器中不可用——因为有些变量应当保密（例如 API 密钥），**不应**暴露给访问已发布 Storybook 的任何人。
 
-To expose a variable, you must preface its name with `STORYBOOK_`. So `STORYBOOK_API_URL` will be available in browser code but `API_KEY` will not. Additionally you can also customize which variables are exposed by setting the [`env`](./configure/environment-variables.mdx#using-storybook-configuration) field in the `.storybook/main.js` file.
+要暴露某个变量，必须在其名称前加 `STORYBOOK_` 前缀。这样 `STORYBOOK_API_URL` 在浏览器代码中可用，而 `API_KEY` 则不可用。此外，你还可以通过在 `.storybook/main.js` 文件中设置 [`env`](./configure/environment-variables.mdx#using-storybook-configuration) 字段来自定义哪些变量被暴露。
 
-Variables are set when JavaScript is compiled so when the development server is started or you build your Storybook. Environment variable files should not be committed to Git as they often contain secrets which are not safe to add to Git. Instead, add `.env.*` to your `.gitignore` file and set up the environment variables manually on your hosting provider (e.g., [GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)).
+变量在 JavaScript 编译时（即启动开发服务器或构建 Storybook 时）被写入。环境变量文件不应提交到 Git，因为它们通常包含不宜入库的机密。请改为把 `.env.*` 加入 `.gitignore` 文件，并在托管平台上手动设置环境变量（例如 [GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)）。
